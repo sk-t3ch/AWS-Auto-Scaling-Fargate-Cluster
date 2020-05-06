@@ -28,24 +28,6 @@ Resources:
 
   ECRRepository: 
     Type: AWS::ECR::Repository
-    Properties: 
-      RepositoryPolicyText: 
-        Version: "2012-10-17"
-        Statement: 
-          - 
-            Sid: AllowPushPull
-            Effect: Allow
-            Principal: 
-              AWS: 
-                - "arn:aws:iam::576362958810:user/skillz"
-            Action: 
-              - "ecr:GetDownloadUrlForLayer"
-              - "ecr:BatchGetImage"
-              - "ecr:BatchCheckLayerAvailability"
-              - "ecr:PutImage"
-              - "ecr:InitiateLayerUpload"
-              - "ecr:UploadLayerPart"
-              - "ecr:CompleteLayerUpload"
           
   ECSServiceAutoScalingRole:
     Type: AWS::IAM::Role
