@@ -1,0 +1,4 @@
+yarl
+multidict
+aiohttp==3.6.2
+aiohttp_cors

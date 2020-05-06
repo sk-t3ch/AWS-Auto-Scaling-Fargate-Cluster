@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Load balancer for service
+
+Resources:
+  LoadBalancerSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Load balancer only allow http
+      VpcId: !ImportValue VPCID
+      SecurityGroupIngress:
+        CidrIp: 0.0.0.0/0
+        FromPort: 80
+        IpProtocol: TCP
+        ToPort: 80
+
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      SecurityGroups:
+        - !Ref LoadBalancerSecGroup
+      Subnets:
+        - !ImportValue PublicSubnetA
+        - !ImportValue PublicSubnetB
+
+Outputs:
+  LoadBalancerArn:
+    Value: !Ref LoadBalancer
+    Export:
+      Name: LoadBalancerArn
+  LoadBalancerSecGroupId:
+    Value: !Ref LoadBalancerSecGroup
+    Export:
+      Name: LoadBalancerSecGroupId

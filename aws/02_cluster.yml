@@ -1,0 +1,98 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Auto Scaling SpotFleet Cluster
+
+Resources:
+  ECSCluster:
+    Type: 'AWS::ECS::Cluster'
+    Properties:
+      ClusterName: AppCluster
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+      
+  DefaultECSRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: DefaultECSServiceRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - ecs.amazonaws.com
+
+  ECRRepository: 
+    Type: AWS::ECR::Repository
+    Properties: 
+      RepositoryPolicyText: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Sid: AllowPushPull
+            Effect: Allow
+            Principal: 
+              AWS: 
+                - "arn:aws:iam::576362958810:user/skillz"
+            Action: 
+              - "ecr:GetDownloadUrlForLayer"
+              - "ecr:BatchGetImage"
+              - "ecr:BatchCheckLayerAvailability"
+              - "ecr:PutImage"
+              - "ecr:InitiateLayerUpload"
+              - "ecr:UploadLayerPart"
+              - "ecr:CompleteLayerUpload"
+          
+  ECSServiceAutoScalingRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: [application-autoscaling.amazonaws.com]
+          Action: ["sts:AssumeRole"]
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole'
+
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy'
+
+Outputs:
+  ECSCluster:
+    Value: !Ref ECSCluster
+    Export:
+      Name: ECSCluster
+  ECRRepositoryName:
+    Value: !Ref ECRRepository
+    Export:
+      Name: ECRRepositoryName
+  ECRRepositoryArn:
+    Value: !GetAtt ECRRepository.Arn
+    Export:
+      Name: ECRRepositoryArn
+  ExecutionRoleArn:
+    Value: !Ref ExecutionRole
+    Export:
+      Name: ExecutionRoleArn
+  ECSServiceAutoScalingRoleArn:
+    Value: !GetAtt ECSServiceAutoScalingRole.Arn
+    Export:
+      Name: ECSServiceAutoScalingRoleArn
+  DefaultECSRoleArn:
+    Value: !Ref DefaultECSRole
+    Export:
+      Name: DefaultECSRoleArn
