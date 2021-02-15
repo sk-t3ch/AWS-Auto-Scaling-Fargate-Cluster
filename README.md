@@ -1,12 +1,18 @@
-# Example Service with AWS Auto Scaling Spot Fleet Cluster
+# [T3chFlicks](https://t3chflicks.org): AWS Auto Scaling Spot Fleet Cluster Quickstart
+> Quickstart for running an example Service on AWS in an Auto Scaling Fargate Cluster
 
-Example of running an auto scaling Python web server using CloudFormation
-* The blog post can be found [here](https://t3chflicks.medium.com/aws-auto-scaling-fargate-cluster-quickstart-with-cloudformation-dab2f84ffabd).
+### Read The Blog Post ([github](./blog_post.md)/[medium](https://medium.com/@t3chflicks/cheaper-than-api-gateway-alb-with-lambda-using-cloudformation-b32b126bbddc)).
 
-![architecture](./architecture.png)
-![example usage](./example_usage.png)
+---
 
-# Step By Step Deployment
+### Architecture
+
+> ![architecture](./architecture.png)
+
+### Example Usage
+> ![example usage](./example_usage.png)
+
+### Step By Step Deployment
 1. Deploy VPC
     * `aws cloudformation create-stack --stack-name vpc --template-body file://aws/00_vpc.yml --capabilities CAPABILITY_NAMED_IAM`
     * tutorial for VPC can be found [here](insert_medium_link)
@@ -22,5 +28,8 @@ Example of running an auto scaling Python web server using CloudFormation
     * Update template with your Docker image
     * `aws cloudformation create-stack --stack-name service --template-body file://aws/03_service.yml --capabilities CAPABILITY_NAMED_IAM`
 
-# Gotchas
-* Login to AWS ECR `aws ecr get-login --registry-ids your_registry_id` and use this response for Docker login.
+---
+
+This project was created by [T3chFlicks](https://t3chflicks.org) - A tech focused education and services company.
+
+---
