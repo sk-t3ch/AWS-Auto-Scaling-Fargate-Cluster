@@ -1,7 +1,7 @@
 # Example Service with AWS Auto Scaling Spot Fleet Cluster
 
 Example of running an auto scaling Python web server using CloudFormation
-* The blog post can be found [here](https://medium.com).
+* The blog post can be found [here](https://t3chflicks.medium.com/aws-auto-scaling-fargate-cluster-quickstart-with-cloudformation-dab2f84ffabd).
 
 ![architecture](./architecture.png)
 ![example usage](./example_usage.png)
