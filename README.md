@@ -15,7 +15,7 @@
 ### Step By Step Deployment
 1. Deploy VPC
     * `aws cloudformation create-stack --stack-name vpc --template-body file://aws/00_vpc.yml --capabilities CAPABILITY_NAMED_IAM`
-    * tutorial for VPC can be found [here](insert_medium_link)
+    * tutorial for VPC can be found [here](https://medium.com/@t3chflicks/virtual-private-cloud-on-aws-quickstart-with-cloudformation-4583109b2433)
 1. Deploy Load Balancer
     * `aws cloudformation create-stack --stack-name loadbalancer --template-body file://aws/01_load_balancer.yml --capabilities CAPABILITY_NAMED_IAM`
 1. Deploy Cluster
