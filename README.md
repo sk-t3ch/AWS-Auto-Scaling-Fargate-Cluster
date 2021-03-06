@@ -1,11 +1,13 @@
 # [T3chFlicks](https://t3chflicks.org): AWS Auto Scaling Spot Fleet Cluster Quickstart
 > Quickstart for running an example Service on AWS in an Auto Scaling Fargate Cluster
+![thumbnail](./thumbnail.png)
 
+---
+
+## `tutorials/`
 [![Generic badge](https://img.shields.io/badge/Blog_Post-Github-orange.svg)](./blog_post.md)
 
 [![Generic badge](https://img.shields.io/badge/Blog_Post-Medium-blue.svg)](https://t3chflicks.medium.com/aws-auto-scaling-fargate-cluster-quickstart-with-cloudformation-dab2f84ffabd)
-
----
 
 ### Architecture
 
